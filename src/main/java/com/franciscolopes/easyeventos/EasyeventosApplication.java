@@ -9,9 +9,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.franciscolopes.easyeventos.domain.Atividade;
+import com.franciscolopes.easyeventos.domain.Equipamento;
 import com.franciscolopes.easyeventos.domain.Evento;
+import com.franciscolopes.easyeventos.domain.Local;
 import com.franciscolopes.easyeventos.repositories.AtividadeRepository;
+import com.franciscolopes.easyeventos.repositories.EquipamentoRepository;
 import com.franciscolopes.easyeventos.repositories.EventoRepository;
+import com.franciscolopes.easyeventos.repositories.LocalRepository;
 
 @SpringBootApplication
 public class EasyeventosApplication implements CommandLineRunner {
@@ -21,6 +25,12 @@ public class EasyeventosApplication implements CommandLineRunner {
 	
 	@Autowired
 	private AtividadeRepository atividadeRepository;
+	
+	@Autowired
+	private LocalRepository localRepository;
+	
+	@Autowired
+	private EquipamentoRepository equipamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EasyeventosApplication.class, args);
@@ -45,7 +55,20 @@ public class EasyeventosApplication implements CommandLineRunner {
 		eventoRepository.save(Arrays.asList(evento1, evento2));
 		atividadeRepository.save(Arrays.asList(a1, a2, a3, a4));
 		
-			
+		
+		Local local1 = new Local(null, "Auditorio", "Auditorio do campus", 20);
+		Local local2 = new Local(null, "Sala 20", "Sala de aula do campus", 30);
+		
+		Equipamento equipamento1 = new Equipamento(null, "Notebook", "Notebook com 4G  de RAM e HD de 500G ", local1);
+		Equipamento equipamento2 = new Equipamento(null, "Datashow", "Datashow com saída de audio", local1);
+		Equipamento equipamento3 = new Equipamento(null, "Notebook", "Notebook com 8G  de RAM e HD de 1T ", local2);
+		Equipamento equipamento4 = new Equipamento(null, "Datashow", "Datashow sem saída de audio", local2);
+		
+		local1.getEquipamentos().addAll(Arrays.asList(equipamento1, equipamento2));
+		local2.getEquipamentos().addAll(Arrays.asList(equipamento3, equipamento4));
+		
+		localRepository.save(Arrays.asList(local1, local2));
+		equipamentoRepository.save(Arrays.asList(equipamento1, equipamento2, equipamento3, equipamento4));
 		
 	}
 }
