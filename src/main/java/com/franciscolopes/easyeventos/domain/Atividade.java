@@ -1,14 +1,19 @@
 package com.franciscolopes.easyeventos.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -39,6 +44,14 @@ public class Atividade implements Serializable{
 	@JoinColumn(name="evento_id")
 	private Evento evento;
 	
+	/*@JsonManagedReference*/
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="atividade")
+	private Local local;
+	
+	/*@JsonManagedReference*/
+	@OneToMany(mappedBy="atividade")
+	private List<Bloco> blocos = new ArrayList<>();
+	
 	public Atividade() {
 		
 	}
@@ -60,6 +73,7 @@ public class Atividade implements Serializable{
 		this.inscricaoAberta = inscricaoAberta;
 		this.atividadeAtiva = atividadeAtiva;
 		this.evento = evento;
+		
 	}
 
 	public Integer getCodAtividade() {
@@ -164,6 +178,28 @@ public class Atividade implements Serializable{
 
 	public void setEvento(Evento evento) {
 		this.evento = evento;
+	}
+
+	public List<Bloco> getBlocos() {
+		return blocos;
+	}
+
+	public void setBlocos(List<Bloco> blocos) {
+		this.blocos = blocos;
+	}
+
+	/**
+	 * @return the local
+	 */
+	public Local getLocal() {
+		return local;
+	}
+
+	/**
+	 * @param local the local to set
+	 */
+	public void setLocal(Local local) {
+		this.local = local;
 	}
 
 	@Override

@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Local  implements Serializable{
@@ -25,16 +28,24 @@ public class Local  implements Serializable{
 	@OneToMany(mappedBy="local")
 	private List<Equipamento> equipamentos = new ArrayList<>();
 	
+	/*@JsonBackReference*/
+	@OneToOne
+	@JoinColumn(name="atividade_id")
+	@MapsId
+	private Atividade atividade;
+	
+	
 	public Local () {
 		
 	}
 
-	public Local(Integer codLocal, String nome, String descricao, Integer capacidadeMax) {
+	public Local(Integer codLocal, String nome, String descricao, Integer capacidadeMax, Atividade atividade) {
 		super();
 		this.codLocal = codLocal;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.capacidadeMax = capacidadeMax;
+		this.atividade = atividade;
 	}
 
 	public Integer getCodLocal() {
@@ -75,6 +86,20 @@ public class Local  implements Serializable{
 
 	public void setEquipamentos(List<Equipamento> equipamentos) {
 		this.equipamentos = equipamentos;
+	}
+
+	/**
+	 * @return the atividade
+	 */
+	public Atividade getAtividade() {
+		return atividade;
+	}
+
+	/**
+	 * @param atividade the atividade to set
+	 */
+	public void setAtividade(Atividade atividade) {
+		this.atividade = atividade;
 	}
 
 	@Override
