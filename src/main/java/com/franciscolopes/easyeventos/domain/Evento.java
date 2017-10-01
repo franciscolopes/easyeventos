@@ -1,12 +1,17 @@
 package com.franciscolopes.easyeventos.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Evento implements Serializable{
@@ -21,6 +26,10 @@ public class Evento implements Serializable{
 	private Date dataInicio;
 	private Date dataFim;
 	private String descricao;
+	
+	
+	@OneToMany(mappedBy="evento")
+	private List<Atividade> atividades = new ArrayList<>(); 
 	
 	public Evento() {
 		
@@ -74,6 +83,15 @@ public class Evento implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	public List<Atividade> getAtividades() {
+		return atividades;
+	}
+
+	public void setAtividades(List<Atividade> atividades) {
+		this.atividades = atividades;
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -99,6 +117,7 @@ public class Evento implements Serializable{
 			return false;
 		return true;
 	}
+
 	
 	
 	
