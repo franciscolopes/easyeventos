@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -44,11 +45,11 @@ public class Atividade implements Serializable{
 	@JoinColumn(name="evento_id")
 	private Evento evento;
 	
-	/*@JsonManagedReference*/
+	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="atividade")
 	private Local local;
 	
-	/*@JsonManagedReference*/
+	@JsonManagedReference
 	@OneToMany(mappedBy="atividade")
 	private List<Bloco> blocos = new ArrayList<>();
 	

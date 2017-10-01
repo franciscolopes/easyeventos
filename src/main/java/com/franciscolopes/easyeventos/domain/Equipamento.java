@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Equipamento  implements Serializable{
 	
@@ -20,6 +22,7 @@ public class Equipamento  implements Serializable{
 	private String nome;
 	private String descricao;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="local_ID")
 	private Local local;

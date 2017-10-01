@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Bloco  implements Serializable{
 	
@@ -20,6 +22,7 @@ public class Bloco  implements Serializable{
 	private Integer horarioIncio;
 	private Integer horarioFim;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="atividade_id")
 	private Atividade atividade;

@@ -13,6 +13,9 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Local  implements Serializable{
 	
@@ -25,10 +28,11 @@ public class Local  implements Serializable{
 	private String descricao;
 	private Integer capacidadeMax;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="local")
 	private List<Equipamento> equipamentos = new ArrayList<>();
 	
-	/*@JsonBackReference*/
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="atividade_id")
 	@MapsId
