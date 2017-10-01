@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Evento implements Serializable{
@@ -27,7 +27,7 @@ public class Evento implements Serializable{
 	private Date dataFim;
 	private String descricao;
 	
-	
+	@JsonManagedReference
 	@OneToMany(mappedBy="evento")
 	private List<Atividade> atividades = new ArrayList<>(); 
 	

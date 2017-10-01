@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 
@@ -34,7 +34,7 @@ public class Atividade implements Serializable{
 	private Boolean inscricaoAberta;
 	private Boolean atividadeAtiva;
 		
-	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="evento_id")
 	private Evento evento;
