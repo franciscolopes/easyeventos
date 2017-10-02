@@ -1,12 +1,16 @@
 package com.franciscolopes.easyeventos.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -26,6 +30,21 @@ public class Bloco  implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="atividade_id")
 	private Atividade atividade;
+	
+	
+	@JsonBackReference
+	@ManyToMany
+	@JoinTable(name = "BLOCO_INSCRICAO",
+		joinColumns = @JoinColumn(name = "bloco_id"),
+		inverseJoinColumns = {@JoinColumn(table = "USUARIO",
+                name = "usuario_id", 
+                referencedColumnName = "usuario_id"),
+    @JoinColumn(table = "ATIVIDADE",
+                name = "atividade_id",                               
+                referencedColumnName = "atividade_id", 
+                nullable = true)}
+	)
+	private List<Inscricao> inscricoes = new ArrayList<>();
 	
 	public Bloco() {
 		
@@ -69,6 +88,14 @@ public class Bloco  implements Serializable{
 
 	public void setAtividade(Atividade atividade) {
 		this.atividade = atividade;
+	}
+
+	public List<Inscricao> getInscricoes() {
+		return inscricoes;
+	}
+
+	public void setInscricoes(List<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
 	}
 
 	@Override

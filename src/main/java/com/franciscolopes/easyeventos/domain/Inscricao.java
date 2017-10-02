@@ -1,10 +1,15 @@
 package com.franciscolopes.easyeventos.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Inscricao implements Serializable{
@@ -16,6 +21,10 @@ public class Inscricao implements Serializable{
 	
 	private Date dataInscricao;
 	private Boolean inscricaoCancelada;
+	
+	@JsonManagedReference
+	@ManyToMany(mappedBy="inscricoes")
+	private List<Bloco> blocos = new ArrayList<>();
 	
 	public Inscricao() {
 		
@@ -61,6 +70,14 @@ public class Inscricao implements Serializable{
 		this.inscricaoCancelada = inscricaoCancelada;
 	}
 
+	public List<Bloco> getBlocos() {
+		return blocos;
+	}
+
+	public void setBlocos(List<Bloco> blocos) {
+		this.blocos = blocos;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -85,6 +102,8 @@ public class Inscricao implements Serializable{
 			return false;
 		return true;
 	}
+
+	
 	
 	
 }

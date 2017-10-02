@@ -117,8 +117,7 @@ public class EasyeventosApplication implements CommandLineRunner {
 		
 
 		atividadeRepository.save(Arrays.asList(a1, a2, a3, a4));
-		blocoRepository.save(Arrays.asList(bloco1, bloco2, bloco3, bloco4,
-				bloco5, bloco6, bloco7, bloco8, bloco9));
+		blocoRepository.save(Arrays.asList(bloco1, bloco2, bloco3, bloco4, bloco5, bloco6, bloco7, bloco8, bloco9));
 		
 	
 		
@@ -155,8 +154,25 @@ public class EasyeventosApplication implements CommandLineRunner {
 		usuario2.getParticipantes().addAll(Arrays.asList(inscricao3));
 		usuario3.getParticipantes().addAll(Arrays.asList(inscricao4));
 		
+		
+		
+		inscricao1.getBlocos().addAll(Arrays.asList(bloco1, bloco2));
+		inscricao2.getBlocos().addAll(Arrays.asList(bloco7, bloco8, bloco9));
+		inscricao3.getBlocos().addAll(Arrays.asList(bloco3, bloco4));
+		inscricao4.getBlocos().addAll(Arrays.asList(bloco5, bloco6));
+		
+		
+		bloco1.getInscricoes().addAll(Arrays.asList(inscricao1));
+		bloco2.getInscricoes().addAll(Arrays.asList(inscricao1));
+		bloco3.getInscricoes().addAll(Arrays.asList(inscricao3));
+		bloco4.getInscricoes().addAll(Arrays.asList(inscricao3));
+		bloco5.getInscricoes().addAll(Arrays.asList(inscricao4));
+		bloco6.getInscricoes().addAll(Arrays.asList(inscricao4));
+		bloco7.getInscricoes().addAll(Arrays.asList(inscricao2));
+		bloco8.getInscricoes().addAll(Arrays.asList(inscricao2));
+		bloco9.getInscricoes().addAll(Arrays.asList(inscricao2));
+		
 		inscricaoRepository.save(Arrays.asList(inscricao1, inscricao2, inscricao3, inscricao4));
-		
-		
+		blocoRepository.save(Arrays.asList(bloco1, bloco2, bloco3, bloco4, bloco5, bloco6, bloco7, bloco8, bloco9));
 	}
 }
