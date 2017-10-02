@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,11 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-
 
 @Entity
 public class Atividade implements Serializable{
@@ -32,9 +29,17 @@ public class Atividade implements Serializable{
 	private Integer codAtividade;
 	private String nome;
 	private String ministrante;
-	private Integer horarioInicio;
-	private Integer horarioFim;
+	
+	@JsonFormat(pattern="hh:mm")
+	private Date horarioInicio;
+	
+	@JsonFormat(pattern="hh:mm")
+	private Date horarioFim;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataInicio;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataFim;
 	private String descricao;
 	private Integer nroVagas;
@@ -55,15 +60,14 @@ public class Atividade implements Serializable{
 	@OneToMany(mappedBy="atividade")
 	private List<Bloco> blocos = new ArrayList<>();
 	
-	
 	@OneToMany(mappedBy="id.atividade")
-	private Set<Inscricao> atividades = new HashSet<>();
+	private Set<Inscricao> inscricoes = new HashSet<>();
 
 	public Atividade() {
 		
 	}
 
-	public Atividade(Integer codAtividade, String nome, String ministrante, Integer horarioInicio, Integer horarioFim,
+	public Atividade(Integer codAtividade, String nome, String ministrante, Date horarioInicio, Date horarioFim,
 			Date dataInicio, Date dataFim, String descricao, Integer nroVagas, String tipoAtividade,
 			Boolean inscricaoAberta, Boolean atividadeAtiva, Evento evento) {
 		super();
@@ -83,12 +87,12 @@ public class Atividade implements Serializable{
 		
 	}
 	
-	public Set<Inscricao> getAtividades() {
-		return atividades;
+	public Set<Inscricao> getInscricoes() {
+		return inscricoes;
 	}
 
-	public void setAtividades(Set<Inscricao> atividades) {
-		this.atividades = atividades;
+	public void setInscricoes(Set<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
 	}
 
 	public Integer getCodAtividade() {
@@ -115,19 +119,19 @@ public class Atividade implements Serializable{
 		this.ministrante = ministrante;
 	}
 
-	public Integer getHorarioInicio() {
+	public Date getHorarioInicio() {
 		return horarioInicio;
 	}
 
-	public void setHorarioInicio(Integer horarioInicio) {
+	public void setHorarioInicio(Date horarioInicio) {
 		this.horarioInicio = horarioInicio;
 	}
 
-	public Integer getHorarioFim() {
+	public Date getHorarioFim() {
 		return horarioFim;
 	}
 
-	public void setHorarioFim(Integer horarioFim) {
+	public void setHorarioFim(Date horarioFim) {
 		this.horarioFim = horarioFim;
 	}
 
@@ -203,16 +207,10 @@ public class Atividade implements Serializable{
 		this.blocos = blocos;
 	}
 
-	/**
-	 * @return the local
-	 */
 	public Local getLocal() {
 		return local;
 	}
 
-	/**
-	 * @param local the local to set
-	 */
 	public void setLocal(Local local) {
 		this.local = local;
 	}
@@ -241,8 +239,5 @@ public class Atividade implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 	
 }

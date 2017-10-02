@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -21,6 +21,7 @@ public class Inscricao implements Serializable{
 	@EmbeddedId
 	private InscricaoPK id = new InscricaoPK(); 
 	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataInscricao;
 	private Boolean inscricaoCancelada;
 	
@@ -106,8 +107,4 @@ public class Inscricao implements Serializable{
 			return false;
 		return true;
 	}
-
-	
-	
-	
 }

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.franciscolopes.easyeventos.domain.Usuario;
 import com.franciscolopes.easyeventos.services.UsuarioService;
 
@@ -22,8 +21,5 @@ public class UsuarioResource {
 		
 		Usuario obj = service.buscar(codUsuario);
 		return ResponseEntity.ok().body(obj);
-		
-		
-		
 	}
 }

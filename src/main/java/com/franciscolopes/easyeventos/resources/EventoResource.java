@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.franciscolopes.easyeventos.domain.Evento;
 import com.franciscolopes.easyeventos.services.EventoService;
 
@@ -21,9 +20,6 @@ public class EventoResource {
 	public ResponseEntity<?> find(@PathVariable Integer codEvento) {
 		
 		Evento obj = service.buscar(codEvento);
-		return ResponseEntity.ok().body(obj);
-		
-		
-		
+		return ResponseEntity.ok().body(obj);	
 	}
 }

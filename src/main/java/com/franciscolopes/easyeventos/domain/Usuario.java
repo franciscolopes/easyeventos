@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
 import com.franciscolopes.easyeventos.domain.enums.CategoriaUsuario;
 
 @Entity
@@ -29,21 +27,11 @@ public class Usuario implements Serializable{
 	private String cpf;
 	private Integer categoria;
 	
-	/*
-	@JsonBackReference
-	@ManyToMany
-	@JoinTable(name = "USUARIO_EVENTO",
-		joinColumns = @JoinColumn(name = "usuario_id"),
-		inverseJoinColumns = @JoinColumn(name = "evento_id")
-	)
-	private List<Evento> eventos = new ArrayList<>();*/
-	
 	@OneToMany(mappedBy="id.usuario")
 	private Set<Certificado> certificados = new HashSet<>();
 	
 	@OneToMany(mappedBy="id.usuario")
-	private Set<Inscricao> participantes = new HashSet<>();
-	
+	private Set<Inscricao> inscricoes = new HashSet<>();
 	
 	public Usuario() {
 		
@@ -60,15 +48,13 @@ public class Usuario implements Serializable{
 		this.categoria = categoria.getCod();
 	}
 
-	
 	public List<Atividade> getAtividades() {
 		List<Atividade> lista = new ArrayList<>();
-		for (Inscricao x : participantes) {
+		for (Inscricao x : inscricoes) {
 			lista.add(x.getAtividade());
 		}
 		return lista;
 	}
-	
 	
 	public List<Evento> getEventos() {
 		List<Evento> lista = new ArrayList<>();
@@ -78,12 +64,12 @@ public class Usuario implements Serializable{
 		return lista;
 	}
 	
-	public Set<Inscricao> getParticipantes() {
-		return participantes;
+	public Set<Inscricao> getInscricoes() {
+		return inscricoes;
 	}
 
-	public void setParticipantes(Set<Inscricao> participantes) {
-		this.participantes = participantes;
+	public void setInscricoes(Set<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
 	}
 
 	public Integer getCodUsuario() {
@@ -141,16 +127,6 @@ public class Usuario implements Serializable{
 	public void setCertificados(Set<Certificado> certificados) {
 		this.certificados = certificados;
 	}
-	
-	
-	/*
-	public List<Evento> getEventos() {
-		return eventos;
-	}
-
-	public void setEventos(List<Evento> eventos) {
-		this.eventos = eventos;
-	}*/
 
 	@Override
 	public int hashCode() {

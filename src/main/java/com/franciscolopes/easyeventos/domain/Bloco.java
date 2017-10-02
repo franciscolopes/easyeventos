@@ -2,8 +2,8 @@ package com.franciscolopes.easyeventos.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Bloco  implements Serializable{
@@ -23,14 +23,17 @@ public class Bloco  implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer codBloco;
-	private Integer horarioIncio;
-	private Integer horarioFim;
+	
+	@JsonFormat(pattern="hh:mm")
+	private Date horarioIncio;
+	
+	@JsonFormat(pattern="hh:mm")
+	private Date horarioFim;
 	
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="atividade_id")
 	private Atividade atividade;
-	
 	
 	@JsonBackReference
 	@ManyToMany
@@ -50,7 +53,7 @@ public class Bloco  implements Serializable{
 		
 	}
 
-	public Bloco(Integer codBloco, Integer horarioIncio, Integer horarioFim, Atividade atividade) {
+	public Bloco(Integer codBloco, Date horarioIncio, Date horarioFim, Atividade atividade) {
 		super();
 		this.codBloco = codBloco;
 		this.horarioIncio = horarioIncio;
@@ -66,19 +69,19 @@ public class Bloco  implements Serializable{
 		this.codBloco = codBloco;
 	}
 
-	public Integer getHorarioIncio() {
+	public Date getHorarioIncio() {
 		return horarioIncio;
 	}
 
-	public void setHorarioIncio(Integer horarioIncio) {
+	public void setHorarioIncio(Date horarioIncio) {
 		this.horarioIncio = horarioIncio;
 	}
 
-	public Integer getHorarioFim() {
+	public Date getHorarioFim() {
 		return horarioFim;
 	}
 
-	public void setHorarioFim(Integer horarioFim) {
+	public void setHorarioFim(Date horarioFim) {
 		this.horarioFim = horarioFim;
 	}
 
@@ -122,6 +125,4 @@ public class Bloco  implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 }

@@ -6,13 +6,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -26,14 +26,14 @@ public class Evento implements Serializable{
 	private Integer codEvento;
 	
 	private String nome;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataInicio;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataFim;
 	private String descricao;
 	
-	/*
-	@JsonManagedReference
-	@ManyToMany(mappedBy="eventos")
-	private List<Usuario> usuarios = new ArrayList<>();*/
 	@JsonIgnore
 	@OneToMany(mappedBy="id.evento")
 	private Set<Certificado> certificados = new HashSet<>();
@@ -54,7 +54,7 @@ public class Evento implements Serializable{
 		this.dataFim = dataFim;
 		this.descricao = descricao;
 	}
-	@JsonIgnore/*Deve ser serializado*/
+	@JsonIgnore/*Deve ser serializado?*/
 	public List<Usuario> getUsuarios() {
 		List<Usuario> lista = new ArrayList<>();
 		for (Certificado x : certificados) {
@@ -62,7 +62,6 @@ public class Evento implements Serializable{
 		}
 		return lista;
 	}
-	
 	
 	public Integer getCodEvento() {
 		return codEvento;
@@ -112,15 +111,6 @@ public class Evento implements Serializable{
 		this.atividades = atividades;
 	}
 	
-/*
-	public List<Usuario> getUsuario() {
-		return usuarios;
-	}
-
-	public void setUsuario(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}*/
-
 	public Set<Certificado> getCertificados() {
 		return certificados;
 	}
@@ -153,8 +143,5 @@ public class Evento implements Serializable{
 			return false;
 		return true;
 	}
-
-	
-	
 	
 }

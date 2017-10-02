@@ -2,7 +2,6 @@ package com.franciscolopes.easyeventos.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.franciscolopes.easyeventos.domain.Atividade;
 import com.franciscolopes.easyeventos.repositories.AtividadeRepository;
 import com.franciscolopes.easyeventos.services.exceptions.ObjectNotFoundException;

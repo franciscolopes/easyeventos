@@ -1,7 +1,6 @@
 package com.franciscolopes.easyeventos.domain;
 
 import java.io.Serializable;
-
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -60,7 +59,4 @@ public class InscricaoPK implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 }
