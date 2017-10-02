@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,6 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Evento implements Serializable{
@@ -38,7 +38,6 @@ public class Evento implements Serializable{
 	@OneToMany(mappedBy="id.evento")
 	private Set<Certificado> certificados = new HashSet<>();
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy="evento")
 	private List<Atividade> atividades = new ArrayList<>(); 
 	

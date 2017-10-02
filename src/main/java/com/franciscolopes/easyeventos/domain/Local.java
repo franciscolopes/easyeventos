@@ -3,6 +3,7 @@ package com.franciscolopes.easyeventos.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Local  implements Serializable{
@@ -25,11 +26,10 @@ public class Local  implements Serializable{
 	private String descricao;
 	private Integer capacidadeMax;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy="local")
 	private List<Equipamento> equipamentos = new ArrayList<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="atividade_id")
 	/*@MapsId*/

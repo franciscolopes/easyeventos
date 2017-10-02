@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,9 +16,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Atividade implements Serializable{
@@ -47,16 +48,14 @@ public class Atividade implements Serializable{
 	private Boolean inscricaoAberta;
 	private Boolean atividadeAtiva;
 		
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="evento_id")
 	private Evento evento;
 	
-	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="atividade")//The meaning of CascadeType.ALL is that the persistence will propagate (cascade) all EntityManager operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH) to the relating entities.
 	private Local local;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy="atividade")
 	private List<Bloco> blocos = new ArrayList<>();
 	

@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Inscricao implements Serializable{
@@ -25,7 +25,6 @@ public class Inscricao implements Serializable{
 	private Date dataInscricao;
 	private Boolean inscricaoCancelada;
 	
-	@JsonManagedReference
 	@ManyToMany(mappedBy="inscricoes")
 	private List<Bloco> blocos = new ArrayList<>();
 	
