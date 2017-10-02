@@ -33,13 +33,17 @@ public class Usuario implements Serializable{
 	private String cpf;
 	private Integer categoria;
 	
+	/*
 	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "USUARIO_EVENTO",
 		joinColumns = @JoinColumn(name = "usuario_id"),
 		inverseJoinColumns = @JoinColumn(name = "evento_id")
 	)
-	private List<Evento> eventos = new ArrayList<>();
+	private List<Evento> eventos = new ArrayList<>();*/
+	
+	@OneToMany(mappedBy="id.usuario")
+	private Set<Certificado> certificados = new HashSet<>();
 	
 	@OneToMany(mappedBy="id.usuario")
 	private Set<Inscricao> participantes = new HashSet<>();
@@ -65,6 +69,15 @@ public class Usuario implements Serializable{
 		List<Atividade> lista = new ArrayList<>();
 		for (Inscricao x : participantes) {
 			lista.add(x.getAtividade());
+		}
+		return lista;
+	}
+	
+	
+	public List<Evento> getEventos() {
+		List<Evento> lista = new ArrayList<>();
+		for (Certificado x : certificados) {
+			lista.add(x.getEvento());
 		}
 		return lista;
 	}
@@ -125,13 +138,23 @@ public class Usuario implements Serializable{
 		this.categoria = categoria.getCod();
 	}
 
+	public Set<Certificado> getCertificados() {
+		return certificados;
+	}
+
+	public void setCertificados(Set<Certificado> certificados) {
+		this.certificados = certificados;
+	}
+	
+	
+	/*
 	public List<Evento> getEventos() {
 		return eventos;
 	}
 
 	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
-	}
+	}*/
 
 	@Override
 	public int hashCode() {
@@ -157,9 +180,5 @@ public class Usuario implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
+
 }

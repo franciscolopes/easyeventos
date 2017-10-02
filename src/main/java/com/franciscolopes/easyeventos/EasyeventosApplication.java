@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.franciscolopes.easyeventos.domain.Atividade;
 import com.franciscolopes.easyeventos.domain.Bloco;
+import com.franciscolopes.easyeventos.domain.Certificado;
 import com.franciscolopes.easyeventos.domain.Equipamento;
 import com.franciscolopes.easyeventos.domain.Evento;
 import com.franciscolopes.easyeventos.domain.Inscricao;
@@ -18,6 +19,7 @@ import com.franciscolopes.easyeventos.domain.Usuario;
 import com.franciscolopes.easyeventos.domain.enums.CategoriaUsuario;
 import com.franciscolopes.easyeventos.repositories.AtividadeRepository;
 import com.franciscolopes.easyeventos.repositories.BlocoRepository;
+import com.franciscolopes.easyeventos.repositories.CertificadoRepository;
 import com.franciscolopes.easyeventos.repositories.EquipamentoRepository;
 import com.franciscolopes.easyeventos.repositories.EventoRepository;
 import com.franciscolopes.easyeventos.repositories.InscricaoRepository;
@@ -48,6 +50,9 @@ public class EasyeventosApplication implements CommandLineRunner {
 	@Autowired
 	private InscricaoRepository inscricaoRepository;
 	
+	@Autowired
+	private CertificadoRepository certificadoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(EasyeventosApplication.class, args);
 	}
@@ -65,16 +70,31 @@ public class EasyeventosApplication implements CommandLineRunner {
 		Evento evento2 = new Evento (null, "3ª Mostra de Trabalhos do IFTM",sdf.parse("24/10/2017 18:45"),sdf.parse("24/10/2017 22:45")," Mostra de Trabalhos da Semana Nacional de Ciência e Tecnologia, a ocorrer no IFTM Campus Uberlândia Centro.");
 		eventoRepository.save(Arrays.asList(evento1, evento2));
 		
+		/*
 		usuario1.getEventos().addAll(Arrays.asList(evento1, evento2));
 		usuario2.getEventos().addAll(Arrays.asList(evento1));
 		usuario3.getEventos().addAll(Arrays.asList(evento2));
 		
 		evento1.getUsuario().addAll(Arrays.asList(usuario1, usuario2));
-		evento2.getUsuario().addAll(Arrays.asList(usuario1, usuario3));
+		evento2.getUsuario().addAll(Arrays.asList(usuario1, usuario3));*/
 		
 		
 		usuarioRepository.save(Arrays.asList(usuario1, usuario2, usuario3));
 		
+		
+		Certificado cert1 = new Certificado(usuario1, evento1, "JLJLJKHLKJHLJKH");
+		Certificado cert2 = new Certificado(usuario1, evento2, "JLJLJKHLKJHLJKH");
+		Certificado cert3 = new Certificado(usuario2, evento1, "JLJLJKHLKJHLJKH");
+		Certificado cert4 = new Certificado(usuario3, evento2, "JLJLJKHLKJHLJKH");
+		
+		usuario1.getCertificados().addAll(Arrays.asList(cert1, cert2));
+		usuario2.getCertificados().addAll(Arrays.asList(cert3));
+		usuario3.getCertificados().addAll(Arrays.asList(cert4));
+		
+		evento1.getCertificados().addAll(Arrays.asList(cert1, cert3));
+		evento2.getCertificados().addAll(Arrays.asList(cert2, cert4));
+		
+		certificadoRepository.save(Arrays.asList(cert1, cert2, cert3, cert4));
 		
 		Atividade a1 = new Atividade(null,"Arduino","Joao",100,100,sdf.parse("23/10/2017 18:45"),sdf.parse("24/10/2017 22:45"),"Curso arduino",40,"Minicurso",true,true,evento1);
 		Atividade a2 = new Atividade(null,"Testes","Alice",100,100,sdf.parse("23/10/2017 18:45"),sdf.parse("24/10/2017 22:45"),"Curso Html",10,"Minicurso",true,true,evento1);
@@ -174,5 +194,6 @@ public class EasyeventosApplication implements CommandLineRunner {
 		
 		inscricaoRepository.save(Arrays.asList(inscricao1, inscricao2, inscricao3, inscricao4));
 		blocoRepository.save(Arrays.asList(bloco1, bloco2, bloco3, bloco4, bloco5, bloco6, bloco7, bloco8, bloco9));
+
 	}
 }

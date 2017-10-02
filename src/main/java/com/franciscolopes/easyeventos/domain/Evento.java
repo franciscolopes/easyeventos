@@ -3,7 +3,9 @@ package com.franciscolopes.easyeventos.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,9 +30,13 @@ public class Evento implements Serializable{
 	private Date dataFim;
 	private String descricao;
 	
+	/*
 	@JsonManagedReference
 	@ManyToMany(mappedBy="eventos")
-	private List<Usuario> usuarios = new ArrayList<>();
+	private List<Usuario> usuarios = new ArrayList<>();*/
+	
+	@OneToMany(mappedBy="id.evento")
+	private Set<Certificado> certificados = new HashSet<>();
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy="evento")
@@ -49,6 +55,15 @@ public class Evento implements Serializable{
 		this.descricao = descricao;
 	}
 
+	public List<Usuario> getUsuarios() {
+		List<Usuario> lista = new ArrayList<>();
+		for (Certificado x : certificados) {
+			lista.add(x.getUsuario());
+		}
+		return lista;
+	}
+	
+	
 	public Integer getCodEvento() {
 		return codEvento;
 	}
@@ -97,13 +112,21 @@ public class Evento implements Serializable{
 		this.atividades = atividades;
 	}
 	
-
+/*
 	public List<Usuario> getUsuario() {
 		return usuarios;
 	}
 
 	public void setUsuario(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}*/
+
+	public Set<Certificado> getCertificados() {
+		return certificados;
+	}
+
+	public void setCertificados(Set<Certificado> certificados) {
+		this.certificados = certificados;
 	}
 
 	@Override
