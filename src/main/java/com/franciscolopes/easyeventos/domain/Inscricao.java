@@ -9,6 +9,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -16,6 +17,7 @@ public class Inscricao implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@EmbeddedId
 	private InscricaoPK id = new InscricaoPK(); 
 	
@@ -38,10 +40,12 @@ public class Inscricao implements Serializable{
 		this.inscricaoCancelada = inscricaoCancelada;
 	}
 
+	@JsonIgnore
 	public Usuario getUsuario() {
 		return id.getUsuario();
 	}
 	
+	@JsonIgnore
 	public Atividade getAtividade() {
 		return id.getAtividade();
 	}

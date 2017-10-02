@@ -11,9 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -34,7 +34,7 @@ public class Evento implements Serializable{
 	@JsonManagedReference
 	@ManyToMany(mappedBy="eventos")
 	private List<Usuario> usuarios = new ArrayList<>();*/
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="id.evento")
 	private Set<Certificado> certificados = new HashSet<>();
 	
@@ -54,7 +54,7 @@ public class Evento implements Serializable{
 		this.dataFim = dataFim;
 		this.descricao = descricao;
 	}
-
+	@JsonIgnore/*Deve ser serializado*/
 	public List<Usuario> getUsuarios() {
 		List<Usuario> lista = new ArrayList<>();
 		for (Certificado x : certificados) {
