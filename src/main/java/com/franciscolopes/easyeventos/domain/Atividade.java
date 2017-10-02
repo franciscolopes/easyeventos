@@ -3,7 +3,9 @@ package com.franciscolopes.easyeventos.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -53,6 +55,10 @@ public class Atividade implements Serializable{
 	@OneToMany(mappedBy="atividade")
 	private List<Bloco> blocos = new ArrayList<>();
 	
+	
+	@OneToMany(mappedBy="id.atividade")
+	private Set<Inscricao> atividades = new HashSet<>();
+
 	public Atividade() {
 		
 	}
@@ -75,6 +81,14 @@ public class Atividade implements Serializable{
 		this.atividadeAtiva = atividadeAtiva;
 		this.evento = evento;
 		
+	}
+	
+	public Set<Inscricao> getAtividades() {
+		return atividades;
+	}
+
+	public void setAtividades(Set<Inscricao> atividades) {
+		this.atividades = atividades;
 	}
 
 	public Integer getCodAtividade() {

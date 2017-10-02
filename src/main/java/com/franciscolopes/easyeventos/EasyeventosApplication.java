@@ -12,6 +12,7 @@ import com.franciscolopes.easyeventos.domain.Atividade;
 import com.franciscolopes.easyeventos.domain.Bloco;
 import com.franciscolopes.easyeventos.domain.Equipamento;
 import com.franciscolopes.easyeventos.domain.Evento;
+import com.franciscolopes.easyeventos.domain.Inscricao;
 import com.franciscolopes.easyeventos.domain.Local;
 import com.franciscolopes.easyeventos.domain.Usuario;
 import com.franciscolopes.easyeventos.domain.enums.CategoriaUsuario;
@@ -19,6 +20,7 @@ import com.franciscolopes.easyeventos.repositories.AtividadeRepository;
 import com.franciscolopes.easyeventos.repositories.BlocoRepository;
 import com.franciscolopes.easyeventos.repositories.EquipamentoRepository;
 import com.franciscolopes.easyeventos.repositories.EventoRepository;
+import com.franciscolopes.easyeventos.repositories.InscricaoRepository;
 import com.franciscolopes.easyeventos.repositories.LocalRepository;
 import com.franciscolopes.easyeventos.repositories.UsuarioRepository;
 
@@ -42,6 +44,9 @@ public class EasyeventosApplication implements CommandLineRunner {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private InscricaoRepository inscricaoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EasyeventosApplication.class, args);
@@ -133,6 +138,25 @@ public class EasyeventosApplication implements CommandLineRunner {
 		
 		localRepository.save(Arrays.asList(local1, local2, local3, local4));
 		equipamentoRepository.save(Arrays.asList(equipamento1, equipamento2, equipamento3, equipamento4, equipamento5, equipamento6, equipamento7, equipamento8));
+		
+		
+		Inscricao inscricao1 = new Inscricao(usuario1, a1, sdf.parse("23/10/2017 18:45"), false);
+		Inscricao inscricao2 = new Inscricao(usuario1, a4, sdf.parse("23/10/2017 18:45"), false);
+		Inscricao inscricao3 = new Inscricao(usuario2, a2, sdf.parse("23/10/2017 18:45"), false);
+		Inscricao inscricao4 = new Inscricao(usuario3, a3, sdf.parse("23/10/2017 18:45"), false);
+		
+		a1.getAtividades().addAll(Arrays.asList(inscricao1));
+		a2.getAtividades().addAll(Arrays.asList(inscricao3));
+		a3.getAtividades().addAll(Arrays.asList(inscricao4));
+		a4.getAtividades().addAll(Arrays.asList(inscricao2));
+		
+
+		usuario1.getParticipantes().addAll(Arrays.asList(inscricao1, inscricao2));
+		usuario2.getParticipantes().addAll(Arrays.asList(inscricao3));
+		usuario3.getParticipantes().addAll(Arrays.asList(inscricao4));
+		
+		inscricaoRepository.save(Arrays.asList(inscricao1, inscricao2, inscricao3, inscricao4));
+		
 		
 	}
 }

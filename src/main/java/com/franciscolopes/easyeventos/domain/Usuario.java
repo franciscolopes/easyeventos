@@ -2,7 +2,9 @@ package com.franciscolopes.easyeventos.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.franciscolopes.easyeventos.domain.enums.CategoriaUsuario;
@@ -38,6 +41,10 @@ public class Usuario implements Serializable{
 	)
 	private List<Evento> eventos = new ArrayList<>();
 	
+	@OneToMany(mappedBy="id.usuario")
+	private Set<Inscricao> participantes = new HashSet<>();
+	
+	
 	public Usuario() {
 		
 	}
@@ -51,6 +58,23 @@ public class Usuario implements Serializable{
 		this.email = email;
 		this.cpf = cpf;
 		this.categoria = categoria.getCod();
+	}
+
+	
+	public List<Atividade> getAtividades() {
+		List<Atividade> lista = new ArrayList<>();
+		for (Inscricao x : participantes) {
+			lista.add(x.getAtividade());
+		}
+		return lista;
+	}
+	
+	public Set<Inscricao> getParticipantes() {
+		return participantes;
+	}
+
+	public void setParticipantes(Set<Inscricao> participantes) {
+		this.participantes = participantes;
 	}
 
 	public Integer getCodUsuario() {
