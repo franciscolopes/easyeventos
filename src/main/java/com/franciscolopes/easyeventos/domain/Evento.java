@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,6 +27,10 @@ public class Evento implements Serializable{
 	private Date dataInicio;
 	private Date dataFim;
 	private String descricao;
+	
+	@JsonManagedReference
+	@ManyToMany(mappedBy="eventos")
+	private List<Usuario> usuarios = new ArrayList<>();
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy="evento")
@@ -92,6 +97,14 @@ public class Evento implements Serializable{
 		this.atividades = atividades;
 	}
 	
+
+	public List<Usuario> getUsuario() {
+		return usuarios;
+	}
+
+	public void setUsuario(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
 
 	@Override
 	public int hashCode() {

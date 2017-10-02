@@ -46,7 +46,7 @@ public class Atividade implements Serializable{
 	private Evento evento;
 	
 	@JsonManagedReference
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="atividade")
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="atividade")//The meaning of CascadeType.ALL is that the persistence will propagate (cascade) all EntityManager operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH) to the relating entities.
 	private Local local;
 	
 	@JsonManagedReference

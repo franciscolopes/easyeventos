@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,7 +21,7 @@ public class Local  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)//RETIRAR ESSA ANOTAÇÃO?
 	private Integer codLocal;
 	private String nome;
 	private String descricao;
@@ -35,7 +34,7 @@ public class Local  implements Serializable{
 	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="atividade_id")
-	@MapsId
+	/*@MapsId*/
 	private Atividade atividade;
 	
 	

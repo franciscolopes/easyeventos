@@ -13,11 +13,14 @@ import com.franciscolopes.easyeventos.domain.Bloco;
 import com.franciscolopes.easyeventos.domain.Equipamento;
 import com.franciscolopes.easyeventos.domain.Evento;
 import com.franciscolopes.easyeventos.domain.Local;
+import com.franciscolopes.easyeventos.domain.Usuario;
+import com.franciscolopes.easyeventos.domain.enums.CategoriaUsuario;
 import com.franciscolopes.easyeventos.repositories.AtividadeRepository;
 import com.franciscolopes.easyeventos.repositories.BlocoRepository;
 import com.franciscolopes.easyeventos.repositories.EquipamentoRepository;
 import com.franciscolopes.easyeventos.repositories.EventoRepository;
 import com.franciscolopes.easyeventos.repositories.LocalRepository;
+import com.franciscolopes.easyeventos.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class EasyeventosApplication implements CommandLineRunner {
@@ -37,6 +40,9 @@ public class EasyeventosApplication implements CommandLineRunner {
 	@Autowired
 	private BlocoRepository blocoRepository;
 	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(EasyeventosApplication.class, args);
 	}
@@ -46,9 +52,23 @@ public class EasyeventosApplication implements CommandLineRunner {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		
+		Usuario usuario1 = new Usuario(null, "Maria","4585","maria@gmail.com","10098415871",CategoriaUsuario.SERVIDOR);
+		Usuario usuario2 = new Usuario(null, "Celio","4dd5","celio@gmail.com","10098515871",CategoriaUsuario.ALUNO);
+		Usuario usuario3 = new Usuario(null, "Alan","try5","alan@gmail.com","13268415871",CategoriaUsuario.VISITANTE);
+		
 		Evento evento1 = new Evento (null, "SNCT2017",sdf.parse("23/10/2017 18:45"),sdf.parse("27/10/2017 22:45"),"A Semana Nacional de Ciência e Tecnologia - SNCT - é coordenada pelo Ministério de Ciência e Tecnologia e tem como objetivo aproximar a Ciência e a Tecnologia da população.");
 		Evento evento2 = new Evento (null, "3ª Mostra de Trabalhos do IFTM",sdf.parse("24/10/2017 18:45"),sdf.parse("24/10/2017 22:45")," Mostra de Trabalhos da Semana Nacional de Ciência e Tecnologia, a ocorrer no IFTM Campus Uberlândia Centro.");
-	
+		eventoRepository.save(Arrays.asList(evento1, evento2));
+		
+		usuario1.getEventos().addAll(Arrays.asList(evento1, evento2));
+		usuario2.getEventos().addAll(Arrays.asList(evento1));
+		usuario3.getEventos().addAll(Arrays.asList(evento2));
+		
+		evento1.getUsuario().addAll(Arrays.asList(usuario1, usuario2));
+		evento2.getUsuario().addAll(Arrays.asList(usuario1, usuario3));
+		
+		
+		usuarioRepository.save(Arrays.asList(usuario1, usuario2, usuario3));
 		
 		
 		Atividade a1 = new Atividade(null,"Arduino","Joao",100,100,sdf.parse("23/10/2017 18:45"),sdf.parse("24/10/2017 22:45"),"Curso arduino",40,"Minicurso",true,true,evento1);
@@ -90,9 +110,7 @@ public class EasyeventosApplication implements CommandLineRunner {
 		a2.getBlocos().addAll(Arrays.asList(bloco5, bloco6));
 		a4.getBlocos().addAll(Arrays.asList(bloco7, bloco8, bloco9));
 		
-		
-		
-		eventoRepository.save(Arrays.asList(evento1, evento2));
+
 		atividadeRepository.save(Arrays.asList(a1, a2, a3, a4));
 		blocoRepository.save(Arrays.asList(bloco1, bloco2, bloco3, bloco4,
 				bloco5, bloco6, bloco7, bloco8, bloco9));
