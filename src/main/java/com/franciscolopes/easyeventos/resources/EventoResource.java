@@ -1,6 +1,8 @@
 package com.franciscolopes.easyeventos.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.franciscolopes.easyeventos.domain.Evento;
+import com.franciscolopes.easyeventos.dto.EventoDTO;
 import com.franciscolopes.easyeventos.services.EventoService;
 
 @RestController
@@ -47,6 +50,13 @@ public class EventoResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer codEvento) {
 		service.delete(codEvento);
 		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<EventoDTO>> findAll() {
+		List<Evento> list = service.findAll();
+		List<EventoDTO> listDto = list.stream().map(obj -> new EventoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 }

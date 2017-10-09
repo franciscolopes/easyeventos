@@ -1,5 +1,7 @@
 package com.franciscolopes.easyeventos.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -36,15 +38,16 @@ public class EventoService {
 	}
 
 	public void delete(Integer codEvento) {
-		 	find(codEvento);
-		 		try {
-		 			eventoRepo.delete(codEvento);
-		 		}
-		 		catch (DataIntegrityViolationException e) {
-		 			throw new DataIntegrityException("Não é possível excluir um evento que possui atividades");
-		 		}
-		 	}
-	
-	
-	
+		find(codEvento);
+		try {
+			eventoRepo.delete(codEvento);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir um evento que possui atividades");
+		}
+	}
+
+	public List<Evento> findAll() {
+		return eventoRepo.findAll();
+	}
+
 }
