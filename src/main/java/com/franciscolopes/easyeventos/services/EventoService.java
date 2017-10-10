@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import com.franciscolopes.easyeventos.domain.Evento;
 import com.franciscolopes.easyeventos.repositories.EventoRepository;
 import com.franciscolopes.easyeventos.services.exceptions.DataIntegrityException;
@@ -48,6 +50,11 @@ public class EventoService {
 
 	public List<Evento> findAll() {
 		return eventoRepo.findAll();
+	}
+
+	public Page<Evento> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return eventoRepo.findAll(pageRequest);
 	}
 
 }

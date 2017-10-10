@@ -16,6 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.franciscolopes.easyeventos.domain.Evento;
 import com.franciscolopes.easyeventos.dto.EventoDTO;
 import com.franciscolopes.easyeventos.services.EventoService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
 
 @RestController
 @RequestMapping(value = "/eventos")
@@ -58,5 +60,17 @@ public class EventoResource {
 		List<EventoDTO> listDto = list.stream().map(obj -> new EventoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
+	
+	@RequestMapping(value="/page", method=RequestMethod.GET)
+	public ResponseEntity<Page<EventoDTO>> findPage(
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {
+		Page<Evento> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<EventoDTO> listDto = list.map(obj -> new EventoDTO(obj));  
+		return ResponseEntity.ok().body(listDto);
+	}
+	
 
 }
