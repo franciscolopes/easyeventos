@@ -45,7 +45,7 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 		this.email = email;
 		this.cpf = cpf;
-		this.categoria = categoria.getCod();
+		this.categoria = (categoria==null) ? null : categoria.getCod();
 	}
 
 	public List<Atividade> getAtividades() {
