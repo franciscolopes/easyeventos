@@ -18,6 +18,7 @@ import com.franciscolopes.easyeventos.dto.EventoDTO;
 import com.franciscolopes.easyeventos.services.EventoService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Page;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/eventos")
@@ -34,7 +35,8 @@ public class EventoResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Evento obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody EventoDTO objDto) {
+		Evento obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{codEvento}")
 				.buildAndExpand(obj.getCodEvento()).toUri();
@@ -42,7 +44,8 @@ public class EventoResource {
 	}
 
 	@RequestMapping(value = "/{codEvento}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Evento obj, @PathVariable Integer codEvento) {
+	public ResponseEntity<Void> update(@Valid @RequestBody EventoDTO objDto, @PathVariable Integer codEvento) {
+		Evento obj = service.fromDTO(objDto);
 		obj.setCodEvento(codEvento);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

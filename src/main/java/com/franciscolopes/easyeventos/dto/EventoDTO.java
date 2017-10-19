@@ -6,15 +6,28 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.franciscolopes.easyeventos.domain.Evento;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class EventoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer codEvento;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
 	private String nome;
+	
+	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataInicio;
+	
+	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataFim;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=500, message="O tamanho deve ser entre 5 e 500 caracteres")
 	private String descricao;
 
 	public EventoDTO() {

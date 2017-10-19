@@ -1,14 +1,17 @@
 package com.franciscolopes.easyeventos.services;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+
 import com.franciscolopes.easyeventos.domain.Evento;
+import com.franciscolopes.easyeventos.dto.EventoDTO;
 import com.franciscolopes.easyeventos.repositories.EventoRepository;
 import com.franciscolopes.easyeventos.services.exceptions.DataIntegrityException;
 import com.franciscolopes.easyeventos.services.exceptions.ObjectNotFoundException;
@@ -55,6 +58,10 @@ public class EventoService {
 	public Page<Evento> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return eventoRepo.findAll(pageRequest);
+	}
+
+	public Evento fromDTO(EventoDTO objDto) {
+		return new Evento(objDto.getCodEvento(), objDto.getNome(), objDto.getDataInicio(), objDto.getDataFim(), objDto.getDescricao());
 	}
 
 }
