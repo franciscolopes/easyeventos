@@ -38,8 +38,9 @@ public class EventoService {
 	}
 
 	public Evento update(Evento obj) {
-		find(obj.getCodEvento());
-		return eventoRepo.save(obj);
+		Evento newObj = find(obj.getCodEvento());
+		updateData(newObj, obj);
+		return eventoRepo.save(newObj);
 	}
 
 	public void delete(Integer codEvento) {
@@ -64,4 +65,7 @@ public class EventoService {
 		return new Evento(objDto.getCodEvento(), objDto.getNome(), objDto.getDataInicio(), objDto.getDataFim(), objDto.getDescricao());
 	}
 
+	private void updateData(Evento newObj, Evento obj) {
+		newObj.setNome(obj.getNome());
+	}
 }
