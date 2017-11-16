@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Inscricao implements Serializable{
@@ -25,6 +25,7 @@ public class Inscricao implements Serializable{
 	private Date dataInscricao;
 	private Boolean inscricaoCancelada;
 	
+	@JsonManagedReference
 	@ManyToMany(mappedBy="inscricoes")
 	private List<Bloco> blocos = new ArrayList<>();
 	
@@ -39,6 +40,12 @@ public class Inscricao implements Serializable{
 		this.dataInscricao = dataInscricao;
 		this.inscricaoCancelada = inscricaoCancelada;
 	}
+	/*-----------QRCODE-----------*/
+	public String getBaseQrcode() {
+		String baseQrcode = getUsuario().getCodUsuario()+ "" +getAtividade().getEvento().getCodEvento() + "eNM~{mz(6JtmaWF";
+		return baseQrcode;
+	}
+	/*-----------QRCODE-----------*/
 
 	@JsonIgnore
 	public Usuario getUsuario() {
@@ -53,7 +60,8 @@ public class Inscricao implements Serializable{
 	public InscricaoPK getId() {
 		return id;
 	}
-
+	
+	
 	public void setId(InscricaoPK id) {
 		this.id = id;
 	}
