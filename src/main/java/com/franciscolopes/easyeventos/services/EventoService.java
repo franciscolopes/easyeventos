@@ -65,7 +65,12 @@ public class EventoService {
 		return new Evento(objDto.getCodEvento(), objDto.getNome(), objDto.getDataInicio(), objDto.getDataFim(), objDto.getDescricao());
 	}
 
+	
+	/*estava alterando apenas o nome, acrescentei alteração de datas e descrição*/
 	private void updateData(Evento newObj, Evento obj) {
 		newObj.setNome(obj.getNome());
+		newObj.setDataInicio(obj.getDataInicio());
+		newObj.setDataFim(obj.getDataFim());
+		newObj.setDescricao(obj.getDescricao());
 	}
 }

@@ -27,7 +27,7 @@ public class QrcodeResource {
 	@RequestMapping(value="/{codUsuario}", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> geraImagemQrcode(@PathVariable Integer codUsuario) throws WriterException, IOException {
 		
-		Usuario obj = service.buscar(codUsuario);
+		Usuario obj = service.find(codUsuario);
 		String baseQrcode = obj.getInscricoes().iterator().next().getBaseQrcode();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
