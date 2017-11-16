@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Certificado implements Serializable{
-	
+public class Certificado implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@JsonIgnore
@@ -15,28 +15,35 @@ public class Certificado implements Serializable{
 	private CertificadoPK id = new CertificadoPK();
 
 	private String CodigoValidacao;
-	
+
 	public Certificado() {
-		
+
 	}
 
-	public Certificado(Usuario usuario, Evento evento , String codigoValidacao) {
+	public Certificado(Usuario usuario, Evento evento, String codigoValidacao) {
 		super();
 		id.setUsuario(usuario);
 		id.setEvento(evento);
 		CodigoValidacao = codigoValidacao;
 	}
 
+	
+	/*---------METODO GERA CERTIFICADO-----------------*/
+	//
+	//
+	//
+	/*---------METODO GERA CERTIFICADO-----------------*/
+	
 	@JsonIgnore
 	public Usuario getUsuario() {
 		return id.getUsuario();
 	}
-	
+
 	@JsonIgnore
 	public Evento getEvento() {
 		return id.getEvento();
 	}
-	
+
 	public CertificadoPK getId() {
 		return id;
 	}
@@ -77,5 +84,5 @@ public class Certificado implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }

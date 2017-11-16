@@ -4,19 +4,17 @@
   	<meta charset="ISO-8859-1">
     <title>TESTE LEITOR DE QR CODE - Instascan</title>
     <script type="text/javascript" src="js/instascan.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     
     <style>
 		body {
     		background-color: lightblue;
 		}
-
 		h1 {
 			font-family:arial;
     		color: white;
     		text-align: center;
 		}
-		
-		
 		video {
 			border: solid yellow 2px;
 			width:350px;
@@ -27,21 +25,84 @@
 			margin-top:-50px;
 			margin-left:-50px;
 		}
+		input{
+			font-size: 40px;
 		
-</style>
+		}
+	</style>
+	<script>
+		$(document).ready(function(){
+		    $("input").change(function(){
+		        alert("The text has been changed.");
+		    });
+		});
+	</script>
+	
   </head>
+  
   <body>
+  
   	<h1>Captura de QR Code</h1>
-    <video id="preview" width="320" height="240" ></video>
+  	
+    <video id="preview" width="350" height="350" ></video>
     <br>
-    <input type="text" id="conteudoQrcode" value="asdsd">
+    
+    <input type="text" id="conteudoQrcode" value="teste">
+    
+    <br>
+    
+    <!-- <img src="http://localhost:8080/qrcode/2" alt="qrcode" width="350" height="350">  -->
+    
     <script type="text/javascript">
       
-    
+      
       var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+      
       scanner.addListener('scan', function (content) {
-        //console.log(content);
-        document.getElementById("conteudoQrcode").value = data;
+        
+    	  console.log(content);
+       
+    	  document.getElementById("conteudoQrcode").value = content;
+        
+    	  
+    	  /*--------TESTANDO JQUERY------------*/
+    	  $(function(){
+
+    		   alert("Conteudo do qr code: "+content);
+    		   alert("Conteudo do campo de texto: "+$("input").val());
+    		   //ajaxPost();
+
+    	  /*--------TESTANDO JQUERY------------*/
+
+    	  /*--------REQUISIÇÃO POST------------*/
+	
+    	  function ajaxPost(){
+    	    	
+    	    	var dadosQrcode = {
+    	    		dados : $("input").val()
+    	    	}
+
+    	    	$.ajax({
+    				type : "POST",
+    				contentType : "application/json",
+    				url : window.location + "/qrcode/leQrcode",
+    				data : JSON.stringify(dados),
+    				dataType : 'json'
+    			});
+    	    	
+    	    	// Reset FormData after Posting
+    	    	limpaCampo();
+    	 
+    	    }
+    	    
+    	    function limpaCampo(){
+    	    	$("input").val("");
+    	    	
+    	    }
+		
+    	  });
+
+    	  /*--------REQUISIÇÃO POST------------*/
       });
       
       
@@ -55,6 +116,8 @@
         console.error(e);
         console.log(e);
       });
+      
+      
     </script>
   </body>
 </html>
