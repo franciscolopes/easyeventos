@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="ISO-8859-1">
+    <title>TESTE LEITOR DE QR CODE - Instascan</title>
+    <script type="text/javascript" src="js/instascan.min.js"></script>
+    
+    <style>
+		body {
+    		background-color: lightblue;
+		}
+
+		h1 {
+			font-family:arial;
+    		color: white;
+    		text-align: center;
+		}
+		
+		
+		video {
+			border: solid yellow 2px;
+			width:350px;
+			height:350px;
+			position:absolute;
+			top:20%;
+			left:40%;
+			margin-top:-50px;
+			margin-left:-50px;
+		}
+		
+</style>
+  </head>
+  <body>
+  	<h1>Captura de QR Code</h1>
+    <video id="preview" width="320" height="240" ></video>
+    <br>
+    <input type="text" id="conteudoQrcode" value="asdsd">
+    <script type="text/javascript">
+      
+    
+      var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+      scanner.addListener('scan', function (content) {
+        //console.log(content);
+        document.getElementById("conteudoQrcode").value = data;
+      });
+      
+      
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
+        } else {
+          console.error('No cameras found.');
+        }
+      }).catch(function (e) {
+        console.error(e);
+        console.log(e);
+      });
+    </script>
+  </body>
+</html>
+
+
+
