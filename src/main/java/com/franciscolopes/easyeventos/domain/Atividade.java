@@ -86,6 +86,16 @@ public class Atividade implements Serializable{
 		
 	}
 	
+	
+	/*-----------DETERMINA PRESENA MINIMA DA ATIVIDADE-----------*/
+	public int getPresencaMinima() {
+		int qtdeBlocos = getBlocos().size();
+		int presencaMin = Math.round((qtdeBlocos * 75))/100;
+		return presencaMin;
+	}
+	/*-----------DETERMINA PRESENA MINIMA DA ATIVIDADE-----------*/
+	
+	
 	public Set<Inscricao> getInscricoes() {
 		return inscricoes;
 	}
@@ -238,5 +248,8 @@ public class Atividade implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
+	
 	
 }

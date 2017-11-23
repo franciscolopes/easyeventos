@@ -63,6 +63,44 @@ public class Bloco  implements Serializable{
 		this.atividade = atividade;
 	}
 
+	
+	
+	/*-----------VERFICA SE USUARIO DO QRCODE ESTA INSCRITO NA ATIVIDADE DO BLOCO-----------
+	public Boolean verificaUsuario(int codUsuario) {
+		List<Bloco> bloco = new ArrayList<Bloco>();
+		for(Bloco x : this.bloco){
+			if (x.getAtividade().getEvento().getUsuarios().iterator().equals(codUsuario)){
+
+		
+		
+		
+		int codEventoBloco = atividade.getEvento().getCodEvento();
+		if(codEvento == codEventoBloco) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	/*-----------VERFICA SE USUARIO DO QRCODE ESTA INSCRITO NA ATIVIDADE DO BLOCO-----------*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*-----------RETORNA CODIGO DA INSCRIÇÃO-----------
+	public void getCodInscricao() {
+		
+		int cod = inscricoes.get(1);
+		cod.setFrequencia(1);
+		//return cod;
+	}
+	/*-----------RETORNA CODIGO DA INSCRIÇÃO-----------*/
+	
 	public Integer getCodBloco() {
 		return codBloco;
 	}

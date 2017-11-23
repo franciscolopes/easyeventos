@@ -57,6 +57,12 @@ public class Usuario implements Serializable{
 
 	
 	
+	
+	
+	
+	
+	
+	
 	public List<Atividade> getAtividades() {
 		List<Atividade> lista = new ArrayList<>();
 		for (Inscricao x : inscricoes) {

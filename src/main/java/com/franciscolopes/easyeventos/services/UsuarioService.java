@@ -1,19 +1,21 @@
 package com.franciscolopes.easyeventos.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.franciscolopes.easyeventos.domain.Usuario;
-import com.franciscolopes.easyeventos.repositories.UsuarioRepository;
-import com.franciscolopes.easyeventos.services.exceptions.ObjectNotFoundException;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+
+import com.franciscolopes.easyeventos.domain.Atividade;
+import com.franciscolopes.easyeventos.domain.Usuario;
 import com.franciscolopes.easyeventos.dto.UsuarioDTO;
+import com.franciscolopes.easyeventos.repositories.UsuarioRepository;
 import com.franciscolopes.easyeventos.services.exceptions.DataIntegrityException;
+import com.franciscolopes.easyeventos.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -21,6 +23,22 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepo;// automaticamente instanciada pelo spring por causa da anotação autowired
 
+	/*-----------VERFICA SE USUARIO DO QRCODE ESTA INSCRITO NA ATIVIDADE DO BLOCO-----------*/
+	public boolean verificaUsuarioCadastrado(Integer codUsuario, Integer codAtividade) {
+		Usuario obj = find(codUsuario);
+		List<Atividade> atividades = new ArrayList<Atividade>();
+		atividades = obj.getAtividades();
+		boolean resultadoVerificacao = false;
+		
+		for(Atividade x : atividades){
+			if(x.getCodAtividade() == codAtividade){
+				resultadoVerificacao = true;
+			}
+		}
+		return resultadoVerificacao;
+	}
+	/*-----------VERFICA SE USUARIO DO QRCODE ESTA INSCRITO NA ATIVIDADE DO BLOCO-----------*/
+	
 	public Usuario find(Integer codUsuario) {
 		Usuario obj = usuarioRepo.findOne(codUsuario);
 		if (obj == null) {

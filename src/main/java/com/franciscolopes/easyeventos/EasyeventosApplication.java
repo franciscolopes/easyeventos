@@ -143,10 +143,10 @@ public class EasyeventosApplication implements CommandLineRunner {
 		localRepository.save(Arrays.asList(local1, local2, local3, local4));
 		equipamentoRepository.save(Arrays.asList(equipamento1, equipamento2, equipamento3, equipamento4, equipamento5, equipamento6, equipamento7, equipamento8));
 		
-		Inscricao inscricao1 = new Inscricao(usuario1, a1, sdf.parse("20/10/2017"), false);
-		Inscricao inscricao2 = new Inscricao(usuario1, a4, sdf.parse("21/10/2017"), false);
-		Inscricao inscricao3 = new Inscricao(usuario2, a2, sdf.parse("10/10/2017"), false);
-		Inscricao inscricao4 = new Inscricao(usuario3, a3, sdf.parse("17/10/2017"), false);
+		Inscricao inscricao1 = new Inscricao(usuario1, a1, sdf.parse("20/10/2017"), false, 0);/*-----ACRESCENTEI FREQUENCIA 23/11--------*/
+		Inscricao inscricao2 = new Inscricao(usuario1, a4, sdf.parse("21/10/2017"), false, 0);/*-----ACRESCENTEI FREQUENCIA 23/11--------*/
+		Inscricao inscricao3 = new Inscricao(usuario2, a2, sdf.parse("10/10/2017"), false, 0);/*-----ACRESCENTEI FREQUENCIA 23/11--------*/
+		Inscricao inscricao4 = new Inscricao(usuario3, a3, sdf.parse("17/10/2017"), false, 0);/*-----ACRESCENTEI FREQUENCIA 23/11--------*/
 		
 		a1.getInscricoes().addAll(Arrays.asList(inscricao1));
 		a2.getInscricoes().addAll(Arrays.asList(inscricao3));

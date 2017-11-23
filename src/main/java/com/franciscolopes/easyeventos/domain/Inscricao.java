@@ -24,6 +24,8 @@ public class Inscricao implements Serializable{
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataInscricao;
 	private Boolean inscricaoCancelada;
+	private int frequencia;/*-----ACRESCENTEI 23/11--------*/
+	
 	
 	@JsonManagedReference
 	@ManyToMany(mappedBy="inscricoes")
@@ -33,13 +35,29 @@ public class Inscricao implements Serializable{
 		
 	}
 
-	public Inscricao(Usuario usuario, Atividade atividade, Date dataInscricao, Boolean inscricaoCancelada) {
+	public Inscricao(Usuario usuario, Atividade atividade, Date dataInscricao, Boolean inscricaoCancelada, Integer frequencia) {/*-----ACRESCENTEI FREQUENCIA 23/11--------*/
 		super();
 		id.setUsuario(usuario);
 		id.setAtividade(atividade);
 		this.dataInscricao = dataInscricao;
 		this.inscricaoCancelada = inscricaoCancelada;
+		this.frequencia = frequencia;/*-----ACRESCENTEI 23/11--------*/
 	}
+	
+	/*-----------CONTROLE FREQUENCIA-----------*/
+	public int alteraFrequncia() {
+		
+		int presMinAtividade = getAtividade().getPresencaMinima();
+		int freq = 0;
+		if(frequencia < presMinAtividade) {
+		  freq = frequencia + 1;
+		}
+		return freq;
+	}
+	/*-----------CONTROLE FREQUENCIA-----------*/
+
+	
+	
 	/*-----------QRCODE-----------*/
 	public String getBaseQrcode() {
 		String baseQrcode = getUsuario().getCodUsuario()+ ";" +getAtividade().getEvento().getCodEvento() + ";" + "eNM~{mz(6JtmaWF";
@@ -80,6 +98,14 @@ public class Inscricao implements Serializable{
 
 	public void setInscricaoCancelada(Boolean inscricaoCancelada) {
 		this.inscricaoCancelada = inscricaoCancelada;
+	}
+
+	public int getFrequencia() {/*-----ACRESCENTEI 23/11--------*/
+		return frequencia;
+	}
+
+	public void setFrequencia(int frequencia) {/*-----ACRESCENTEI 23/11--------*/
+		this.frequencia = frequencia;
 	}
 
 	public List<Bloco> getBlocos() {
