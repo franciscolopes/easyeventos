@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>TESTE LEITOR DE QR CODE - Instascan</title>
+<script type="text/javascript" src="js/instascan.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+
+<script>
+	/*var doc = new jsPDF()
+
+	doc.text('Hello world!', 10, 10)
+	doc.save('a4.pdf')*/
+
+	/*
+	 * Let's demonstrate string splitting with the first page of Shakespeare's Romeo and Juliet!
+	 * We'll use a 8.5 x 11 inch sheet, measuring everything in inches.
+	 */
+	var pageWidth = 8.5, lineHeight = 1.2, margin = 0.5, maxLineWidth = pageWidth
+			- margin * 2, fontSize = 24, ptsPerInch = 72, oneLineHeight = fontSize
+			* lineHeight / ptsPerInch, text = 'Certifico que Rebeca Sobral Freire participou da Mesa Redonda Perspectivas\n'
+			+ 'Políticas naContemporaneidade realizada pela area de Filosofia e Ciencias\n'
+			+ 'Humanas ministrando a palestra HTML,\n'
+			+ 'no dia 23 de setembro de 2010, com carga horáriade 4h.\n', doc = new jsPDF(
+			{
+				orientation: 'landscape',
+				unit : 'in',
+				lineHeight : lineHeight
+			}).setProperties({
+		title : 'CERTIFICADO DE EVENTO'
+	});
+
+	// splitTextToSize takes your string and turns it in to an array of strings,
+	// each of which can be displayed within the specified maxLineWidth.
+	var textLines = doc.setFont('helvetica', 'neue').setFontSize(fontSize)
+			.splitTextToSize(text, maxLineWidth);
+
+	// doc.text can now add those lines easily; otherwise, it would have run text off the screen!
+	doc.text(textLines, margin, margin + 2 * oneLineHeight);
+
+	// You can also calculate the height of the text very simply:
+	var textHeight = textLines.length * fontSize * lineHeight / ptsPerInch;
+	doc.setFontStyle('bold').text('CERTIFICADO: SNCT2017',
+			margin, margin + oneLineHeight);
+
+	doc.save('CERTIFICADO.pdf')
+</script>
+
+</head>
+
+<body>
+
+	<h1>Certificado</h1>
+
+
+</body>
+</html>
+
+
+
