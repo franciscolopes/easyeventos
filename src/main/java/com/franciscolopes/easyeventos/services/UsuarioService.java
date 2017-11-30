@@ -11,8 +11,10 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.franciscolopes.easyeventos.domain.Atividade;
+import com.franciscolopes.easyeventos.domain.Bloco;
 import com.franciscolopes.easyeventos.domain.Usuario;
 import com.franciscolopes.easyeventos.dto.UsuarioDTO;
+import com.franciscolopes.easyeventos.repositories.BlocoRepository;
 import com.franciscolopes.easyeventos.repositories.UsuarioRepository;
 import com.franciscolopes.easyeventos.services.exceptions.DataIntegrityException;
 import com.franciscolopes.easyeventos.services.exceptions.ObjectNotFoundException;
@@ -22,12 +24,15 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepo;// automaticamente instanciada pelo spring por causa da anotação autowired
-
+	private BlocoRepository blocoRepo;
+	
 	/*-----------VERFICA SE USUARIO DO QRCODE ESTA INSCRITO NA ATIVIDADE DO BLOCO-----------*/
-	public boolean verificaUsuarioCadastrado(Integer codUsuario, Integer codAtividade) {
-		Usuario obj = find(codUsuario);
+	public boolean verificaUsuarioCadastrado(Integer codUsuario, Integer codBloco) {
+		Usuario objUsuario = usuarioRepo.findOne(codUsuario);
+		Bloco objBloco = blocoRepo.findOne(codBloco);
+		int codAtividade = objBloco.getAtividade().getCodAtividade();
 		List<Atividade> atividades = new ArrayList<Atividade>();
-		atividades = obj.getAtividades();
+		atividades = objUsuario.getAtividades();
 		boolean resultadoVerificacao = false;
 		
 		for(Atividade x : atividades){

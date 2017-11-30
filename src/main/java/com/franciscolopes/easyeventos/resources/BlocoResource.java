@@ -19,7 +19,7 @@ public class BlocoResource {
 	@RequestMapping(value="/{codBloco}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer codBloco) {
 		
-		Bloco obj = service.buscar(codBloco);
+		Bloco obj = service.find(codBloco);
 		return ResponseEntity.ok().body(obj);	
 	}
 }

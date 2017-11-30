@@ -180,4 +180,13 @@ public class Usuario implements Serializable{
 	    return pngData;
 	}
 	/*-----------QRCODE-----------*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -2,6 +2,7 @@ package com.franciscolopes.easyeventos.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.franciscolopes.easyeventos.domain.Bloco;
 import com.franciscolopes.easyeventos.repositories.BlocoRepository;
 import com.franciscolopes.easyeventos.services.exceptions.ObjectNotFoundException;
@@ -10,12 +11,13 @@ import com.franciscolopes.easyeventos.services.exceptions.ObjectNotFoundExceptio
 public class BlocoService {
 	
 	@Autowired
-	private BlocoRepository eventoRepo;//automaticamente instanciada pelo spring por causa da anotação autowired
-	public Bloco buscar(Integer codBloco) {
-		Bloco obj = eventoRepo.findOne(codBloco);
+	private BlocoRepository blocoRepo;
+	
+	
+	public Bloco find(Integer codBloco) {
+		Bloco obj = blocoRepo.findOne(codBloco);
 		if (obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! código: " + codBloco
-					+ ", Tipo: " + Bloco.class.getName());
+			throw new ObjectNotFoundException("Objeto não encontrado! código: " + codBloco + ", Tipo: " + Bloco.class.getName());
 		}
 		
 		return obj;

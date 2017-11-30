@@ -59,8 +59,8 @@ public class Inscricao implements Serializable{
 	
 	
 	/*-----------QRCODE-----------*/
-	public String getBaseQrcode() {
-		String baseQrcode = getUsuario().getCodUsuario()+ ";" +getAtividade().getEvento().getCodEvento() + ";" + "eNM~{mz(6JtmaWF";
+	public Integer getBaseQrcode() {
+		Integer baseQrcode = getUsuario().getCodUsuario();
 		return baseQrcode;
 	}
 	/*-----------QRCODE-----------*/
