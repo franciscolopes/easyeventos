@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TesteCertificado {
 
 	@RequestMapping(value = "/certificado")
-	public String index() {
+	public String certificado() {
 		return "certificado.html";
 	}
 }

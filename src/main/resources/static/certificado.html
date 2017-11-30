@@ -61,17 +61,19 @@
       scanner.addListener('scan', function (content) {
         
     	  console.log(content);
-       
+    	  
     	  document.getElementById("conteudoQrcode").value = content;
         
-    	  
+      
     	  /*--------TESTANDO JQUERY------------*/
     	  $(function(){
-
-    		   alert("Conteudo do qr code: "+content);
+    		   $("input").val(content);
+    		
+    		   alert("Conteudo do qr code: "+typeof(content));
     		   alert("Conteudo do campo de texto: "+$("input").val());
     		   ajaxPost();
     		   limpaCampo();
+    		   alert("EXECUTOU");
 
     	  /*--------TESTANDO JQUERY------------*/
 
@@ -79,15 +81,17 @@
     	  /*--------REQUISIÇÃO POST------------*/
     	  function ajaxPost(){
   	    	
-  	    	var dadosQrcode = {}
-  	    		data["stringQrcode"] = $("input").val();
   	    	
 
   	    	$.ajax({
   				type : "POST",
   				contentType : "application/json",
-  				url : window.location + "${home}qrcode/frequencia",
-  				data : JSON.stringify(data),
+  				url : "http://localhost:8080/qrcode/frequencia",
+  				data : JSON.stringify({
+  					
+  					"qrcodeString": $("input").val()
+  					
+  				}),
   				dataType : 'json',
   				timeout : 100000,
   				success : function(data) {
