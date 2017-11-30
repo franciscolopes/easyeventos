@@ -71,10 +71,11 @@
     		
     		   alert("Conteudo do qr code: "+typeof(content));
     		   alert("Conteudo do campo de texto: "+$("input").val());
-    		   ajaxPost();
+    		   //ajaxPost();
     		   limpaCampo();
     		   alert("EXECUTOU");
-
+    		   $.get("http://localhost:8080/qrcode/frequencia?qrcodeString="+content, function(responseText) {
+    			   $("h1").text(responseText); });
     	  /*--------TESTANDO JQUERY------------*/
 
     	  });
@@ -87,11 +88,11 @@
   				type : "POST",
   				contentType : "application/json",
   				url : "http://localhost:8080/qrcode/frequencia",
-  				data : JSON.stringify({
+  				data : {
   					
   					"qrcodeString": $("input").val()
   					
-  				}),
+  				},
   				dataType : 'json',
   				timeout : 100000,
   				success : function(data) {

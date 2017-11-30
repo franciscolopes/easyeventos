@@ -21,6 +21,8 @@ import com.franciscolopes.easyeventos.services.BlocoService;
 import com.franciscolopes.easyeventos.services.UsuarioService;
 import com.google.zxing.WriterException;
 
+import jnr.ffi.types.size_t;
+
 @RestController
 @RequestMapping(value="/qrcode")
 public class QrcodeResource {
@@ -30,10 +32,10 @@ public class QrcodeResource {
 	 private BlocoService blocoService;
 	
 	
-	@RequestMapping(value = "/frequencia", method = RequestMethod.POST)
-	public Integer postFrequencia(@RequestParam(value = "qrcodeString") String  qrcodeString) {
+	@RequestMapping(value = "/frequencia", method = RequestMethod.GET)
+	public Integer postFrequencia(@RequestParam(value = "qrcodeString", required=true) String  qrcodeString) {
 		
-		int freq =qrcodeString.indexOf(6);
+		int freq =qrcodeString.length();
 		return freq;
 	}
 	
